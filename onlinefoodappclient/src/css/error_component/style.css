@@ -1,0 +1,24 @@
+.text {
+    font-size: 30px;
+    font-weight: 700;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.input-grp {
+    position: relative;
+    display: -ms-flexbox;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    width: 100%;
+}
+
+.ml20 {
+    margin-left: 20px;
+}
+
+.mli3 {
+    margin-left: 3px;
+}
