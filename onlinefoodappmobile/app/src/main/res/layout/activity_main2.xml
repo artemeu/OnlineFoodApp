@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <include
+        android:id="@+id/campaign_slider"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3.5"
+        layout="@layout/layout_image_slider"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/arranger"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6.5">
+        <Button
+            android:id="@+id/ordersbtn"
+            app:layout_constraintTop_toTopOf="@+id/arranger"
+            app:layout_constraintEnd_toEndOf="@+id/arranger"
+            app:layout_constraintHeight_percent="0.25"
+            app:layout_constraintWidth_percent="0.55"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:textColor="@android:color/black"
+            android:background="@drawable/button_ripple_effect"
+            android:text="@string/orders"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+
+            />
+
+        <Button
+            android:id="@+id/mealmenubtn"
+            app:layout_constraintTop_toTopOf="@+id/arranger"
+            app:layout_constraintStart_toStartOf="@+id/arranger"
+            app:layout_constraintHeight_percent="0.50"
+            app:layout_constraintWidth_percent="0.45"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:textColor="@android:color/white"
+            android:drawableStart="@drawable/restaurant"
+            android:drawablePadding="-30dp"
+            android:textAlignment="gravity"
+            android:paddingStart="10dp"
+            android:gravity="center"
+            android:text="@string/meal_menu"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:background="@color/colorPastelRed"
+            />
+
+        <!--android:onClick="startDiningHallActivity"-->
+
+        <Button
+            android:id="@+id/previousordersbtn"
+            app:layout_constraintStart_toStartOf="@+id/arranger"
+            app:layout_constraintBottom_toBottomOf="@+id/arranger"
+            app:layout_constraintHeight_percent="0.50"
+            app:layout_constraintWidth_percent="0.45"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimary"
+            android:text="@string/previousorders"
+            />
+
+        <Button
+            android:id="@+id/loginbtn"
+            app:layout_constraintBottom_toBottomOf="@+id/arranger"
+            app:layout_constraintEnd_toEndOf="@+id/arranger"
+            app:layout_constraintHeight_percent="0.75"
+            app:layout_constraintWidth_percent="0.55"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            android:text="@string/login"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:background="@color/cloudblue"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

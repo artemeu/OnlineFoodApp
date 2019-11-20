@@ -1,0 +1,46 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**
+!**/src/test/**
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+
+#### JSF frontend stuff
+.sass-cache
+
+### user specific resources:
+/*/resources/application-user-*.properties
+/*/resources/application-user-*.yml
+
+### General ###
+## osx garbage in any directory
+**/.DS_Store
+## .gitignore files and folders below one directory level, recursively.
+/*/.gitignore
+Thumbs.db
+*.log
+
+### VS Code ###
+.vscode/

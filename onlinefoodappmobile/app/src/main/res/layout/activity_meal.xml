@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/meal_image"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.65"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/txt_border"
+        android:contentDescription="@string/meal_image_here"
+        android:scaleType="fitXY"/>
+
+    <TextView
+        android:id="@+id/meal_detail"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.35"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/txt_border"/>
+
+    <TextView
+        android:id="@+id/meal_price"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="end"
+        android:textSize="80sp"
+        android:textColor="@color/cloudblue"
+        android:textColorHint="@color/colorYellow"
+        android:textColorHighlight="@color/primary"
+        android:textAlignment="center"
+        android:textStyle="bold|italic"/>
+</LinearLayout>
