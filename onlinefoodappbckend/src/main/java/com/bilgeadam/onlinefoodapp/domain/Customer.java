@@ -1,8 +1,9 @@
 package com.bilgeadam.onlinefoodapp.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity(name = "CUSTOMER")
 public class Customer {

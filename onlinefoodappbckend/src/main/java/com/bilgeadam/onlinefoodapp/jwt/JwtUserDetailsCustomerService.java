@@ -1,7 +1,7 @@
 package com.bilgeadam.onlinefoodapp.jwt;
 
-import com.bilgeadam.onlinefoodapp.domain.Employee;
-import com.bilgeadam.onlinefoodapp.repo.EmployeeServiceImpl;
+import com.bilgeadam.onlinefoodapp.domain.Customer;
+import com.bilgeadam.onlinefoodapp.repo.CustomerServiceImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,23 +12,23 @@ import java.util.Optional;
 @Service
 public class JwtUserDetailsCustomerService implements UserDetailsService {
 
-    private final EmployeeServiceImpl employeeService;
+    private final CustomerServiceImpl customerService;
 
-    public JwtUserDetailsCustomerService(EmployeeServiceImpl employeeService) {
-        this.employeeService = employeeService;
+    public JwtUserDetailsCustomerService(CustomerServiceImpl customerService) {
+        this.customerService = customerService;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Employee> userFromDB = employeeService.findByUsername(username);
-        JwtUserDetails jwtUserDetails = null;
+
+        Optional<Customer> userFromDB = customerService.findByUsername(username);
+        JwtCustomerDetails jwtCustomerDetails = null;
         if (userFromDB.isPresent()) {
-            jwtUserDetails = new JwtUserDetails(userFromDB.get());
-        } else {
+            jwtCustomerDetails= new JwtCustomerDetails(userFromDB.get());
+        }else {
             throw new UsernameNotFoundException(String.format("USER_NOT_FOUND '%s'.", username));
         }
-
-        return jwtUserDetails;
+        return jwtCustomerDetails;
     }
 }
 

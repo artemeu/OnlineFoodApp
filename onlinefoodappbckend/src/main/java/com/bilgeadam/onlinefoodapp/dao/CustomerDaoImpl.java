@@ -1,7 +1,9 @@
 package com.bilgeadam.onlinefoodapp.dao;
 
 import com.bilgeadam.onlinefoodapp.domain.Customer;
+import com.bilgeadam.onlinefoodapp.domain.Employee;
 import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
@@ -40,11 +42,15 @@ public class CustomerDaoImpl implements CustomerDao {
     @Override
     public Optional<Customer> findByUsername(String username) {
 
-        CriteriaBuilder cb = getSession().getCriteriaBuilder();
-        CriteriaQuery<Customer> cr = cb.createQuery(Customer.class);
-        Root<Customer> root = cr.from(Customer.class);
+//        CriteriaBuilder cb = getSession().getCriteriaBuilder();
+//        CriteriaQuery<Customer> cr = cb.createQuery(Customer.class);
+//        Root<Customer> root = cr.from(Customer.class);
+//
+//        Query<Customer> query = getSession().createQuery(cr.select(root).where(cb.equal(root.get("username"), username)));
+//        List<Customer> results = query.getResultList();
+//        return !results.isEmpty() ? Optional.ofNullable(results.get(0)) : Optional.empty();
 
-        Query<Customer> query = getSession().createQuery(cr.select(root).where(cb.equal(root.get("username"), username)));
+        NativeQuery<Customer> query = getSession().createNativeQuery("select * from CUSTOMER where USERNAME=:username", Customer.class).setParameter("username", username);
         List<Customer> results = query.getResultList();
         return !results.isEmpty() ? Optional.ofNullable(results.get(0)) : Optional.empty();
 

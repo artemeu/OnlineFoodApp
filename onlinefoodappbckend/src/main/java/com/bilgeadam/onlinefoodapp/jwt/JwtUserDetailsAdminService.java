@@ -20,6 +20,7 @@ public class JwtUserDetailsAdminService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
         Optional<Employee> userFromDB = employeeService.findByUsername(username);
         JwtUserDetails jwtUserDetails = null;
         if (userFromDB.isPresent()) {
