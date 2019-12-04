@@ -38,7 +38,7 @@ class LoginComponent extends Component {
                                 <button className="login100-form-btn" onClick={this.loginClicked}>Giriş Yap</button>
                             </div>
                             <label className="check">
-                                <input type="checkbox" id="check" />
+                                <input type="checkbox" id="check" checked />
                                 <span className="checkmark"></span>
                                 Beni Hatırla
                             </label>
@@ -56,16 +56,10 @@ class LoginComponent extends Component {
 
     loginClicked = () => {
         var remember = document.getElementById("check").checked;
-        if (remember == true) {
-            console.log('true')
-        }
-        else {
-            console.log('false')
-        }
 
         AuthenticationService.executeJwtAuthentication(this.state.username, this.state.password)
             .then(response => {
-                AuthenticationService.registerSuccessfullLoginJwt(this.state.username, response.data.token);
+                AuthenticationService.registerSuccessfullLoginJwt(this.state.username, response.data.token, remember);
                 this.props.history.push(`/`);
             })
             .catch(error => {
@@ -75,9 +69,9 @@ class LoginComponent extends Component {
 
     }
 
-    logoutClicked = () => {
-        AuthenticationService.logOut();
-    }
+    // logoutClicked = () => {
+    //     AuthenticationService.logOut();
+    // }
 
 }
 

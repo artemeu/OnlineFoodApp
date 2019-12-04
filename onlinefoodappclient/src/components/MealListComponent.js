@@ -85,8 +85,13 @@ class MealListComponent extends Component {
     }
 
     order = (code, value) => {
-        console.log(code, value)
-        this.resetValue(code);
+        if (AuthenticationService.isUserLoggedIn()) {
+            console.log(code, value)
+            this.resetValue(code);
+        } else {
+            this.props.history.push('/login');
+        }
+
     }
 
     resetValue = (code) => {

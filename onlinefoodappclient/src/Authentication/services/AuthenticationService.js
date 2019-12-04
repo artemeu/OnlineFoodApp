@@ -6,21 +6,43 @@ class AuthenticationService {
         return axios.post('http://localhost:8034/customer/authenticate', { username, password });
     };
 
-    registerSuccessfullLoginJwt(username, token) {
-        sessionStorage.setItem('authenticatedUser', username);
-        localStorage.setItem('token', token);
-        this.setupAxiosInterceptorsJwt(token);
+    registerSuccessfullLoginJwt(username, token, remember) {
+        if (remember == true) {
+            localStorage.setItem('authenticatedUser', username);
+            localStorage.setItem('token', token);
+            this.setupAxiosInterceptorsJwt(token);
+        }
+        else {
+            sessionStorage.setItem('authenticatedUser', username);
+            localStorage.setItem('token', token);
+            this.setupAxiosInterceptorsJwt(token);
+        }
+
     }
 
     logOut() {
-        localStorage.removeItem('token');
-        sessionStorage.removeItem('authenticatedUser');
+        let local = localStorage.getItem('authenticatedUser');
+        if (local != null) {
+            localStorage.removeItem('token');
+            localStorage.removeItem('authenticatedUser');
+        } else {
+            localStorage.removeItem('token');
+            sessionStorage.removeItem('authenticatedUser');
+        }
     }
 
     isUserLoggedIn() {
-        let user = sessionStorage.getItem('authenticatedUser');
-        if (user === null) return false;
-        return true;
+        let session = sessionStorage.getItem('authenticatedUser');
+        let local = localStorage.getItem('authenticatedUser');
+        if (session != null) {
+            return true
+        }
+        else if (local != null) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     setupAxiosInterceptors(username, password) {
