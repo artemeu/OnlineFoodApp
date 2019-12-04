@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import HeaderComonent from './HeaderComponent';
 import LoginComponent from './LoginComponent';
 import FooterComponent from './FooterComponent';
@@ -17,11 +17,11 @@ class OnlineFoodApp extends Component {
                     <>
                         <HeaderComonent />
                         <Switch>
-                            <AuthenticatedRoute path="/" exact component={MealListComponent} />
-                            <AuthenticatedRoute path="/meals" component={MealListComponent} />
+                            <Route path="/" exact component={MealListComponent} />
+                            <Route path="/meals" component={MealListComponent} />
                             <AuthenticatedRoute path="/shoppingcart/" component={ShoppingCartComponent} />
                             <LoginRouter path="/login" component={LoginComponent} />
-                            <ErrorComponent />
+                            <Route component={ErrorComponent} />
                         </Switch>
                         <FooterComponent />
                     </>

@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import moment from "moment";
-import {ErrorMessage, Field, Form, Formik} from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import MealDataService from "../../api/MealDataService";
 
 class MealComponent extends Component {
@@ -48,12 +48,12 @@ class MealComponent extends Component {
 
     onSubmit = (values) => {
         console.log(values);
-        if(this.state.action==='update'){
+        if (this.state.action === 'update') {
             MealDataService.updateMeal(this.state.meal.code, values)
                 .then(response => {
                     this.props.history.push(`/meallist`);
                 })
-        }else{
+        } else {
             MealDataService.createMeal(values)
                 .then(response => {
                     this.props.history.push(`/meallist`);
@@ -63,20 +63,20 @@ class MealComponent extends Component {
 
     componentDidMount = () => {
         if (this.props.match.params.code === "new") {
-            this.setState({action: 'create'});
+            this.setState({ action: 'create' });
             return;
         }
 
         MealDataService.retrieveMeal(this.props.match.params.code)
             .then(response => {
                 console.log(response);
-                this.setState({meal: response.data});
+                this.setState({ meal: response.data });
             });
 
     };
 
     render() {
-        let {code, name, price, photo, detail, campaign, creationDate} = this.state.meal;
+        let { code, name, price, photo, detail, campaign, creationDate } = this.state.meal;
 
         function setFieldValue(checked) {
             campaign = checked;
@@ -87,45 +87,45 @@ class MealComponent extends Component {
                 <h1>Meal</h1>
                 <div className="container">
                     <Formik onSubmit={this.onSubmit}
-                            validate={this.validate}
-                            initialValues={{code, name, price, photo, detail, campaign, creationDate}}
-                            enableReinitialize={true}
+                        validate={this.validate}
+                        initialValues={{ code, name, price, photo, detail, campaign, creationDate }}
+                        enableReinitialize={true}
                     >
                         {
                             (props) => (
                                 <Form>
-                                    <ErrorMessage name="code" component="div" className="alert alert-warning"/>
-                                    <ErrorMessage name="name" component="div" className="alert alert-warning"/>
-                                    <ErrorMessage name="price" component="div" className="alert alert-warning"/>
-                                    <ErrorMessage name="creationDate" component="div" className="alert alert-warning"/>
+                                    <ErrorMessage name="code" component="div" className="alert alert-warning" />
+                                    <ErrorMessage name="name" component="div" className="alert alert-warning" />
+                                    <ErrorMessage name="price" component="div" className="alert alert-warning" />
+                                    <ErrorMessage name="creationDate" component="div" className="alert alert-warning" />
                                     <fieldset className="form-group">
                                         <label>Code</label>
-                                        <Field className="form-control" type="text" name="code"/>
+                                        <Field className="form-control" type="text" name="code" />
                                     </fieldset>
                                     <fieldset className="form-group">
                                         <label>Name</label>
-                                        <Field className="form-control" type="text" name="name"/>
+                                        <Field className="form-control" type="text" name="name" />
                                     </fieldset>
                                     <fieldset className="form-group">
                                         <label>Price</label>
-                                        <Field className="form-control" type="text" name="price"/>
+                                        <Field className="form-control" type="text" name="price" />
                                     </fieldset>
                                     <fieldset className="form-group">
                                         <label>Photo</label>
-                                        <Field className="form-control" type="text" name="photo"/>
+                                        <Field className="form-control" type="text" name="photo" />
                                     </fieldset>
                                     <fieldset className="form-group">
                                         <label>Detail</label>
-                                        <Field className="form-control" type="text" name="detail"/>
+                                        <Field className="form-control" type="text" name="detail" />
                                     </fieldset>
                                     <fieldset className="form-group">
                                         <label>Creation Date</label>
-                                        <Field className="form-control" type="date" name="creationDate"/>
+                                        <Field className="form-control" type="date" name="creationDate" />
                                     </fieldset>
                                     <fieldset className="form-group">
                                         <label>Campaign?</label>
                                         <Field className="form-control" type="checkbox" name="campaign"
-                                               onChange={event => setFieldValue(event.target.checked)} checked={campaign}/>
+                                            onChange={event => setFieldValue(event.target.checked)} checked={campaign} />
                                     </fieldset>
                                     <button className="btn btn-success" type="submit">Save</button>
                                 </Form>

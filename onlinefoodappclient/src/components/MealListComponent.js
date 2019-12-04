@@ -1,20 +1,35 @@
 import React, { Component } from 'react';
+import MealDataService from "../api/MealDataService";
+import AuthenticationService from '../Authentication/services/AuthenticationService';
 import ShoppingCartComponent from './ShoppingCartComponent';
 import ShoppingCartService from '../services/ShoppingCartService';
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 
 class MealListComponent extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             meals:
                 [
-                    { code: 'MNT1', name: 'Mantı', price: 12, photo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTb1kYeg_hLCRfdDJY8993QPPf_j0BxIqOLF-x1XXOTXiuz1-nz', detail: 'Süper bi yemek!' },
-                    { code: 'CRB1', name: 'Çorba', price: 6, photo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQksEHmneA7QLNELK_VC1-uRED9i7YJWj-Tjq2vBlMglsrX0pHY', detail: 'Süper bi yemek!' },
-                    { code: 'PD1', name: 'Pide', price: 19, photo: 'https://iasbh.tmgrup.com.tr/111ad1/650/344/0/12/700/383?u=http://i.sabah.com.tr/sbh/2016/12/21/1482317898915.jpg', detail: 'Süper bi yemek!' }
+                    // { code: 'MNT1', name: 'Mantı', price: 12, photo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTb1kYeg_hLCRfdDJY8993QPPf_j0BxIqOLF-x1XXOTXiuz1-nz', detail: 'Süper bi yemek!' },
+                    // { code: 'CRB1', name: 'Çorba', price: 6, photo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQksEHmneA7QLNELK_VC1-uRED9i7YJWj-Tjq2vBlMglsrX0pHY', detail: 'Süper bi yemek!' },
+                    // { code: 'PD1', name: 'Pide', price: 19, photo: 'https://iasbh.tmgrup.com.tr/111ad1/650/344/0/12/700/383?u=http://i.sabah.com.tr/sbh/2016/12/21/1482317898915.jpg', detail: 'Süper bi yemek!' }
                 ]
         }
+        AuthenticationService.setupAxiosInterceptorsForSavedToken();
     }
+
+    componentDidMount() {
+        this.refreshMeals();
+    };
+
+    refreshMeals = () => {
+        MealDataService.retrieveAllMeals()
+            .then(response => {
+                this.setState({ meals: response.data });
+            })
+    };
+
     render() {
         return (
             <div>

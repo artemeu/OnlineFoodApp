@@ -13,7 +13,7 @@ class HeaderComonent extends Component {
                     <div><a href="http://localhost:5500" className="navbar-brand">Online Food App</a></div>
 
                     <ul className="navbar-nav">
-                        {isUserLoggedIn && <li><Link className="nav-link font-family-size" to="/meals">Yemekler</Link></li>}
+                        <li><Link className="nav-link font-family-size" to="/meals">Yemekler</Link></li>
                         {isUserLoggedIn && <li><Link className="nav-link font-family-size" to="/shoppingcart">Sepetim</Link></li>}
                     </ul>
 

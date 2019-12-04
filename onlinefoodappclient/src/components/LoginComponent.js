@@ -37,7 +37,11 @@ class LoginComponent extends Component {
                             <div className="container-login100-form-btn m-t-20">
                                 <button className="login100-form-btn" onClick={this.loginClicked}>Giriş Yap</button>
                             </div>
-
+                            <label className="check">
+                                <input type="checkbox" id="check" />
+                                <span className="checkmark"></span>
+                                Beni Hatırla
+                            </label>
                         </div>
 
                     </div>
@@ -51,13 +55,24 @@ class LoginComponent extends Component {
     }
 
     loginClicked = () => {
-        if (this.state.username === "artemeu" && this.state.password === "123") {
-            this.props.history.push(`/meals`);
-            AuthenticationService.registerSuccessfullLogin(this.state.username, this.state.password);
+        var remember = document.getElementById("check").checked;
+        if (remember == true) {
+            console.log('true')
         }
         else {
-            this.setState({ isLoggedIn: false })
+            console.log('false')
         }
+
+        AuthenticationService.executeJwtAuthentication(this.state.username, this.state.password)
+            .then(response => {
+                AuthenticationService.registerSuccessfullLoginJwt(this.state.username, response.data.token);
+                this.props.history.push(`/`);
+            })
+            .catch(error => {
+                this.setState({ isLoggedIn: false });
+                console.log(error + "FAILED");
+            })
+
     }
 
     logoutClicked = () => {

@@ -5,7 +5,7 @@ import { Route, Redirect } from 'react-router-dom';
 class LoginRouter extends Component {
     render() {
         if (AuthenticationService.isUserLoggedIn()) {
-            return <Redirect to="/" />
+            return <Redirect to="/login" />
         }
         else {
             return <Route{...this.props} />

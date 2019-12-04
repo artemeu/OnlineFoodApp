@@ -45,6 +45,9 @@ public class EmployeeDaoImpl implements EmployeeDao  {
         List<Employee> results = query.getResultList();
         return !results.isEmpty() ? Optional.ofNullable(results.get(0)) : Optional.empty();*/
 
+//        NativeQuery deneme = getSession().createSQLQuery("deneme");
+
+
         NativeQuery<Employee> query = getSession().createNativeQuery("select * from EMPLOYEE where USERNAME=:username", Employee.class).setParameter("username", username);
         List<Employee> results = query.getResultList();
         return !results.isEmpty() ? Optional.ofNullable(results.get(0)) : Optional.empty();

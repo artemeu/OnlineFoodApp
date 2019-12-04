@@ -25,27 +25,27 @@ public class MealResource {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/all")
-    public List<Meal> getAllMeals(){
+    public List<Meal> getAllMeals() {
         return mealService.getAllMeals();
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/campaigns")
-    public List<Meal> getCampaignMeals(){
+    public List<Meal> getCampaignMeals() {
         return mealService.getCampaignMeals();
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{code}")
-    public Optional<Meal> getMeal(@PathVariable String code){
+    public Optional<Meal> getMeal(@PathVariable String code) {
         return mealService.findByCode(code);
     }
 
     @RequestMapping(method = RequestMethod.PUT, path = "/{code}")
-    public ResponseEntity<Meal> updateMeal(@PathVariable String code,@RequestBody Meal meal){
+    public ResponseEntity<Meal> updateMeal(@PathVariable String code, @RequestBody Meal meal) {
         return new ResponseEntity<Meal>(mealService.save(meal), HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/create")
-    public ResponseEntity<Meal> createMeal(@RequestBody Meal meal){
+    public ResponseEntity<Meal> createMeal(@RequestBody Meal meal) {
         Meal createdMeal = mealService.save(meal);
         URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/meals/{code}")
                 .buildAndExpand(createdMeal.getCode()).toUri();
@@ -53,11 +53,11 @@ public class MealResource {
     }
 
     @RequestMapping(method = RequestMethod.DELETE, path = "/{code}")
-    public ResponseEntity<Void> delete(@PathVariable String code){
-        try{
+    public ResponseEntity<Void> delete(@PathVariable String code) {
+        try {
             mealService.delete(code);
             return ResponseEntity.noContent().build();
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
     }

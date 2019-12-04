@@ -1,9 +1,6 @@
 package com.bilgeadam.onlinefoodapp.jwt.resource;
 
-import com.bilgeadam.onlinefoodapp.jwt.JwtTokenUtil;
-import com.bilgeadam.onlinefoodapp.jwt.JwtUserDetails;
-import com.bilgeadam.onlinefoodapp.jwt.JwtUserDetailsAdminService;
-import com.bilgeadam.onlinefoodapp.jwt.JwtUserDetailsCustomerService;
+import com.bilgeadam.onlinefoodapp.jwt.*;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,15 +50,15 @@ public class JwtAuthenticationCustomerController {
         String authToken = request.getHeader("Authorization");
         final String token = authToken.substring(7);
         String username = jwtTokenUtil.getUsernameFromToken(token);
-        JwtUserDetails user = (JwtUserDetails) jwtUserDetailsCustomerService.loadUserByUsername(username);
+        JwtCustomerDetails user = (JwtCustomerDetails) jwtUserDetailsCustomerService.loadUserByUsername(username);
 
         if (jwtTokenUtil.canTokenBeRefreshed(token)) {
-            String refreshedToken = jwtTokenUtil.refreshToken(token);
-            return ResponseEntity.ok(new JwtTokenResponse(refreshedToken));
-        } else {
-            return ResponseEntity.badRequest().body(null);
-        }
+        String refreshedToken = jwtTokenUtil.refreshToken(token);
+        return ResponseEntity.ok(new JwtTokenResponse(refreshedToken));
+    } else {
+        return ResponseEntity.badRequest().body(null);
     }
+}
 
     @ExceptionHandler({AuthenticationException.class})
     public ResponseEntity<String> handleAuthenticationException(AuthenticationException e) {

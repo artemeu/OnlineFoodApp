@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import MealDataService from "../../api/MealDataService";
 import AuthenticationService from "./AuthenticationService";
 
@@ -34,8 +34,8 @@ class MealList extends Component {
 
     refreshMeals = () => {
         MealDataService.retrieveAllMeals()
-            .then(response =>{
-                this.setState({meals: response.data});
+            .then(response => {
+                this.setState({ meals: response.data });
             })
     };
 
@@ -43,35 +43,35 @@ class MealList extends Component {
         return (
             <div>
                 <h1>Meal List</h1>
-                {this.state.message!=null && <div className="alert alert-success">{this.state.message}</div>}
+                {this.state.message != null && <div className="alert alert-success">{this.state.message}</div>}
                 <div className="container">
                     <table className="table">
                         <thead>
-                        <tr>
-                            <th>CODE</th>
-                            <th>NAME</th>
-                            <th>PRICE</th>
-                            <th>PHOTO</th>
-                            <th>DETAIL</th>
-                            <th>UPDATE</th>
-                            <th>DELETE</th>
-                        </tr>
+                            <tr>
+                                <th>CODE</th>
+                                <th>NAME</th>
+                                <th>PRICE</th>
+                                <th>PHOTO</th>
+                                <th>DETAIL</th>
+                                <th>UPDATE</th>
+                                <th>DELETE</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        {
-                            this.state.meals.map(
-                                meal =>
-                                    <tr key={meal.code}>
-                                        <td>{meal.code}</td>
-                                        <td>{meal.name}</td>
-                                        <td>{meal.price.toString()}</td>
-                                        <td>{meal.photo}</td>
-                                        <td>{meal.detail}</td>
-                                        <td><button onClick={() => this.handleUpdateMealClicked(meal.code)} className="btn btn-success">UPDATE</button></td>
-                                        <td><button onClick={() => this.handleDeleteMealClicked(meal.code)} className="btn btn-warning">DELETE</button></td>
-                                    </tr>
-                            )
-                        }
+                            {
+                                this.state.meals.map(
+                                    meal =>
+                                        <tr key={meal.code}>
+                                            <td>{meal.code}</td>
+                                            <td>{meal.name}</td>
+                                            <td>{meal.price.toString()}</td>
+                                            <td>{meal.photo}</td>
+                                            <td>{meal.detail}</td>
+                                            <td><button onClick={() => this.handleUpdateMealClicked(meal.code)} className="btn btn-success">UPDATE</button></td>
+                                            <td><button onClick={() => this.handleDeleteMealClicked(meal.code)} className="btn btn-warning">DELETE</button></td>
+                                        </tr>
+                                )
+                            }
                         </tbody>
                     </table>
 
@@ -83,14 +83,14 @@ class MealList extends Component {
         );
     }
 
-    handleDeleteMealClicked = (code) =>{
-        MealDataService.deleteMeal(code).then(response=>{
-            this.setState({message : `Delete successfull!`});
+    handleDeleteMealClicked = (code) => {
+        MealDataService.deleteMeal(code).then(response => {
+            this.setState({ message: `Delete successfull!` });
             this.refreshMeals();
         });
     };
 
-    handleUpdateMealClicked = (code) =>{
+    handleUpdateMealClicked = (code) => {
         this.props.history.push(`/meallist/${code}`);
     };
 
