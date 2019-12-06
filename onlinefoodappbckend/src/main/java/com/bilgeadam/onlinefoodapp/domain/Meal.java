@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity(name = "MEAL")
 public class Meal {
@@ -37,10 +38,17 @@ public class Meal {
     @Column(name = "CAMPAIGN")
     private Boolean campaign;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "CART",
+            joinColumns = @JoinColumn(name = "CODE"),
+            inverseJoinColumns = @JoinColumn(name = "CUSTOMER_ID"))
+    private Set<Customer> customers;
+
     public Meal() {
     }
 
-    public Meal(String code, Employee employee, String name, Long price, String photo, String detail, Date creationDate, Boolean campaign) {
+    public Meal(String code, Employee employee, String name, Long price, String photo, String detail, Date creationDate, Boolean campaign, Set<Customer> customers) {
         this.code = code;
         this.employee = employee;
         this.name = name;
@@ -49,6 +57,7 @@ public class Meal {
         this.detail = detail;
         this.creationDate = creationDate;
         this.campaign = campaign;
+        this.customers = customers;
     }
 
     public String getCode() {
@@ -113,5 +122,13 @@ public class Meal {
 
     public void setCampaign(Boolean campaign) {
         this.campaign = campaign;
+    }
+
+    public Set<Customer> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(Set<Customer> customers) {
+        this.customers = customers;
     }
 }

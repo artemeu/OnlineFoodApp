@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
+import CartDataService from '../api/CartDataService';
+import AuthenticationService from '../Authentication/services/AuthenticationService';
 
 class ShoppingCartComponent extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            meals:
-                [
-                    // { code: 'MNT1', name: 'Mantı', price: 12, photo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTb1kYeg_hLCRfdDJY8993QPPf_j0BxIqOLF-x1XXOTXiuz1-nz', detail: 'Süper bi yemek!' }
-                ]
+            meals: [],
         }
+        AuthenticationService.setupAxiosInterceptorsForSavedToken();
     }
 
     menuyeDon = () => {
@@ -16,7 +16,40 @@ class ShoppingCartComponent extends Component {
 
     }
 
+    componentDidMount() {
+        this.refreshMeals();
+    };
+
+    refreshMeals = () => {
+        CartDataService.getAllCart()
+            .then(response => {
+                console.log(response.data)
+                this.setState({ meals: response.data });
+            })
+    };
+
+    remove = (code) => {
+        CartDataService.removeMeal(code)
+            .then(response => {
+                this.refreshMeals();
+            })
+
+    }
+
+    increment = (code) => {
+        let val = document.getElementById(code).value
+        if (val != 10)
+            document.getElementById(code).value++
+    }
+
+    decrement = (code) => {
+        let val = document.getElementById(code).value
+        if (val != 1)
+            document.getElementById(code).value--
+    }
+
     render() {
+        debugger
         return (
             <div className="container">
                 <div className="card shopping-cart">
@@ -28,8 +61,8 @@ class ShoppingCartComponent extends Component {
 
                     {this.state.meals.length === 0 && <div className="card-body">Urun yok</div>}
 
-
-                    {this.state.meals.length != 0 &&
+                    {
+                        this.state.meals.length != 0 &&
                         this.state.meals.map(
                             meal =>
                                 <div className="card-body" key={meal.code}>
@@ -50,15 +83,15 @@ class ShoppingCartComponent extends Component {
 
                                             <div className="col-4 col-sm-4 col-md-4">
                                                 <div className="quantity">
-                                                    <input type="button" value="+" className="plus" />
-                                                    <input type="text" max="99" min="1" value="1" className="qty"
+                                                    <input type="button" value="+" className="plus" onClick={() => this.increment(meal.code)} />
+                                                    <input type="text" max="99" min="1" value="1" id={meal.code} className="qty"
                                                         size="4" readOnly />
-                                                    <input type="button" value="-" className="minus" />
+                                                    <input type="button" value="-" className="minus" onClick={() => this.decrement(meal.code)} />
                                                 </div>
                                             </div>
 
                                             <div className="col-2 col-sm-2 col-md-2 text-right">
-                                                <button className="btn btn-danger">Sil</button>
+                                                <button className="btn btn-danger" onClick={() => this.remove(meal.code)}>Sil</button>
                                             </div>
                                         </div>
                                     </div>

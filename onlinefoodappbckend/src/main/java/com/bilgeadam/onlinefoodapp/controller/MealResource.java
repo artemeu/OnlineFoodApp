@@ -26,7 +26,8 @@ public class MealResource {
 
     @RequestMapping(method = RequestMethod.GET, path = "/all")
     public List<Meal> getAllMeals() {
-        return mealService.getAllMeals();
+        List<Meal> meals = mealService.getAllMeals();
+        return meals;
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/campaigns")
@@ -61,4 +62,6 @@ public class MealResource {
             return ResponseEntity.notFound().build();
         }
     }
+
+
 }

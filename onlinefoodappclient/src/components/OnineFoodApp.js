@@ -19,7 +19,7 @@ class OnlineFoodApp extends Component {
                         <Switch>
                             <Route path="/" exact component={MealListComponent} />
                             <Route path="/meals" component={MealListComponent} />
-                            <AuthenticatedRoute path="/shoppingcart/" component={ShoppingCartComponent} />
+                            <AuthenticatedRoute path="/shoppingcart" component={ShoppingCartComponent} />
                             <LoginRouter path="/login" component={LoginComponent} />
                             <Route component={ErrorComponent} />
                         </Switch>

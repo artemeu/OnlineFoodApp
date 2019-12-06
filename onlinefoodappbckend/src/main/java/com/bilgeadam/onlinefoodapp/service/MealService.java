@@ -34,13 +34,17 @@ public class MealService {
         mealRepository.deleteById(code);
     }
 
-    public Optional<Meal> findByCode(String code){
+    public Optional<Meal> findByCode(String code) {
         return mealRepository.findById(code);
     }
 
-    public Meal save(Meal meal){
+    public Meal save(Meal meal) {
         Optional<Employee> employee = employeeService.findById(1L);
         employee.ifPresent(meal::setEmployee);
         return mealRepository.save(meal);
+    }
+
+    public List<Meal> getAllCart(long id) {
+        return mealRepository.getAllCart(id);
     }
 }

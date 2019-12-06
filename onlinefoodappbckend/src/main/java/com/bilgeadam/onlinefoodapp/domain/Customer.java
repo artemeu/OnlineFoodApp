@@ -20,6 +20,9 @@ public class Customer {
     @Column(name = "PASSWORD")
     private String password;
 
+    @ManyToMany(mappedBy = "customers")
+    private Set<Meal> meals;
+
     public Customer() {
     }
 

@@ -38,7 +38,7 @@ class LoginComponent extends Component {
                                 <button className="login100-form-btn" onClick={this.loginClicked}>Giriş Yap</button>
                             </div>
                             <label className="check">
-                                <input type="checkbox" id="check" checked />
+                                <input type="checkbox" id="check" />
                                 <span className="checkmark"></span>
                                 Beni Hatırla
                             </label>
