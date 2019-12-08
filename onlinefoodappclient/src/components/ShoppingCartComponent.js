@@ -7,6 +7,7 @@ class ShoppingCartComponent extends Component {
         super(props);
         this.state = {
             meals: [],
+            totalPrice: null
         }
         AuthenticationService.setupAxiosInterceptorsForSavedToken();
     }
@@ -33,7 +34,6 @@ class ShoppingCartComponent extends Component {
             .then(response => {
                 this.refreshMeals();
             })
-
     }
 
     increment = (code) => {
@@ -48,11 +48,20 @@ class ShoppingCartComponent extends Component {
             document.getElementById(code).value--
     }
 
+    submitCart = (meal) => {
+        CartDataService.sumbitCart(meal)
+            .then(response => {
+                this.refreshMeals();
+            });
+        this.setState({ message: `Siparis Oluşturuldu` });
+        setTimeout(() => this.setState({ message: null }), 3000);
+    };
+
     render() {
-        debugger
         return (
             <div className="container">
                 <div className="card shopping-cart">
+                    {this.state.message != null && <div className="alert alert-success">{this.state.message}</div>}
                     <div className="card-header bg-dark text-light">
                         <div className="float-l">Sepetim</div>
                         <button className="btn btn-outline-light btn-sm float-right" style={{ alignItems: "right" }} onClick={this.menuyeDon} >Menüye Dön</button>
@@ -101,9 +110,9 @@ class ShoppingCartComponent extends Component {
 
                     {this.state.meals.length != 0 && <div className="card-footer">
                         <div className="pull-right" style={{ margin: "10px" }}>
-                            <button className="btn btn-success pull-right">Onayla</button>
+                            <button className="btn btn-success pull-right" onClick={() => this.submitCart(this.state.meals)}>Onayla</button>
                             <div className="pull-right" style={{ margin: "5px" }}>
-                                Toplam: <b>50.00 TL</b>
+                                Toplam: <b>{this.state.totalPrice}</b>
                             </div>
                         </div>
                     </div>}

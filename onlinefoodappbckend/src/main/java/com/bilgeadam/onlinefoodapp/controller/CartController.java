@@ -59,9 +59,18 @@ public class CartController {
         }
     }
 
-    public void emptyCart(HttpServletRequest req) {
+    @RequestMapping(method = RequestMethod.POST, path = "/submit")
+    public boolean submitOrder(HttpServletRequest req, @RequestBody List<Meal> meals) {
         long id = customerService.getId(req);
-        customerService.emptyCart(id);
+
+        List<Meal> mealList = meals;
+
+        try {
+            customerService.emptyCart(id);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 }
