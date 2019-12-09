@@ -12,8 +12,6 @@ public interface MealRepository extends CrudRepository<Meal, String> {
     Optional<Meal> findById(String code);
     List<Meal> findAllByCampaignTrue();
 
-//    List<Meal> findAllByCustomersIn(long id);
-
-    @Query(value = "SELECT M.CODE, M.EMP_ID, M.NAME, M.PRICE, M.PHOTO, M.DETAIL, M.CREATION_DATE, M.CAMPAIGN FROM CART C INNER JOIN MEAL M ON C.CODE = M.CODE WHERE CUSTOMER_ID = 1", nativeQuery = true)
+    @Query(value = "SELECT M.CODE, M.EMP_ID, M.NAME, M.PRICE, M.PHOTO, M.DETAIL, M.CREATION_DATE, M.CAMPAIGN FROM CART C INNER JOIN MEAL M ON C.CODE = M.CODE WHERE CUSTOMER_ID =?1", nativeQuery = true)
     List<Meal> getAllCart(long id);
 }

@@ -1,5 +1,7 @@
 package com.bilgeadam.onlinefoodapp.service;
 
+import com.bilgeadam.onlinefoodapp.domain.Customer;
+import com.bilgeadam.onlinefoodapp.domain.Order;
 import com.bilgeadam.onlinefoodapp.jwt.JwtCustomerDetails;
 import com.bilgeadam.onlinefoodapp.jwt.JwtTokenUtil;
 import com.bilgeadam.onlinefoodapp.jwt.JwtUserDetailsCustomerService;
@@ -8,7 +10,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
@@ -39,6 +43,10 @@ public class CustomerService {
 
     public void deleteCartMeal(long id, String code){
         customerRepository.deleteCartMeal(id, code);
+    }
+
+    public Optional<Customer> findById(Long id){
+        return customerRepository.findByCustomerId(id);
     }
 
     public long getId(HttpServletRequest req) {

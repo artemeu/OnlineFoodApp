@@ -1,7 +1,9 @@
 package com.bilgeadam.onlinefoodapp.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -43,12 +45,17 @@ public class Meal {
             name = "CART",
             joinColumns = @JoinColumn(name = "CODE"),
             inverseJoinColumns = @JoinColumn(name = "CUSTOMER_ID"))
+    @JsonBackReference
     private Set<Customer> customers;
+
+    @ManyToMany(mappedBy = "meals")
+    @JsonBackReference("orders")
+    private Set<Order> orders;
 
     public Meal() {
     }
 
-    public Meal(String code, Employee employee, String name, Long price, String photo, String detail, Date creationDate, Boolean campaign, Set<Customer> customers) {
+    public Meal(String code, Employee employee, String name, Long price, String photo, String detail, Date creationDate, Boolean campaign, Set<Customer> customers, Set<Order> orders) {
         this.code = code;
         this.employee = employee;
         this.name = name;
@@ -58,6 +65,7 @@ public class Meal {
         this.creationDate = creationDate;
         this.campaign = campaign;
         this.customers = customers;
+        this.orders = orders;
     }
 
     public String getCode() {
@@ -130,5 +138,13 @@ public class Meal {
 
     public void setCustomers(Set<Customer> customers) {
         this.customers = customers;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
 }

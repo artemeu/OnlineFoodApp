@@ -1,6 +1,7 @@
 package com.bilgeadam.onlinefoodapp.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -23,15 +24,20 @@ public class Customer {
     @ManyToMany(mappedBy = "customers")
     private Set<Meal> meals;
 
+    @OneToMany(mappedBy="customer")
+    private Set<Order> orders;
+
     public Customer() {
     }
 
-    public Customer(long customerId, String name, String surname, String username, String password) {
+    public Customer(long customerId, String name, String surname, String username, String password, Set<Meal> meals, Set<Order> orders) {
         this.customerId = customerId;
         this.name = name;
         this.surname = surname;
         this.username = username;
         this.password = password;
+        this.meals = meals;
+        this.orders = orders;
     }
 
     public long getCustomerId() {
@@ -72,5 +78,21 @@ public class Customer {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<Meal> getMeals() {
+        return meals;
+    }
+
+    public void setMeals(Set<Meal> meals) {
+        this.meals = meals;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
 }

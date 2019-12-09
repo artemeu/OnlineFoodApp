@@ -1,7 +1,7 @@
 package com.bilgeadam.onlinefoodapp.jwt;
 
 import com.bilgeadam.onlinefoodapp.domain.Employee;
-import com.bilgeadam.onlinefoodapp.repo.EmployeeServiceImpl;
+import com.bilgeadam.onlinefoodapp.service.EmployeeService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,11 +12,12 @@ import java.util.Optional;
 @Service
 public class JwtUserDetailsAdminService implements UserDetailsService {
 
-    private final EmployeeServiceImpl employeeService;
+    private final EmployeeService employeeService;
 
-    public JwtUserDetailsAdminService(EmployeeServiceImpl employeeService) {
+    public JwtUserDetailsAdminService(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

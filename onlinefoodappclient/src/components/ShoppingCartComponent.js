@@ -7,7 +7,7 @@ class ShoppingCartComponent extends Component {
         super(props);
         this.state = {
             meals: [],
-            totalPrice: null
+            totalPrice: 0
         }
         AuthenticationService.setupAxiosInterceptorsForSavedToken();
     }
@@ -15,6 +15,14 @@ class ShoppingCartComponent extends Component {
     menuyeDon = () => {
         this.props.history.push("/meals")
 
+    }
+
+    totalPrice = (meals) => {
+        let price = 0;
+        Object.entries(meals).map(([make, result]) => {
+            price = price + result.price
+        })
+        this.setState({ totalPrice: price });
     }
 
     componentDidMount() {
@@ -26,6 +34,8 @@ class ShoppingCartComponent extends Component {
             .then(response => {
                 console.log(response.data)
                 this.setState({ meals: response.data });
+                if (response.data.length != 0)
+                    this.totalPrice(response.data)
             })
     };
 
@@ -56,6 +66,8 @@ class ShoppingCartComponent extends Component {
         this.setState({ message: `Siparis Oluşturuldu` });
         setTimeout(() => this.setState({ message: null }), 3000);
     };
+
+
 
     render() {
         return (
@@ -108,11 +120,12 @@ class ShoppingCartComponent extends Component {
                         )
                     }
 
+
                     {this.state.meals.length != 0 && <div className="card-footer">
                         <div className="pull-right" style={{ margin: "10px" }}>
                             <button className="btn btn-success pull-right" onClick={() => this.submitCart(this.state.meals)}>Onayla</button>
                             <div className="pull-right" style={{ margin: "5px" }}>
-                                Toplam: <b>{this.state.totalPrice}</b>
+                                Toplam: <b>{this.state.totalPrice}.00 TL</b>
                             </div>
                         </div>
                     </div>}
