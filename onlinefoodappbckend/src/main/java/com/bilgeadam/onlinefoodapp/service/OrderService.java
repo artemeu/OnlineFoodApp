@@ -5,6 +5,7 @@ import com.bilgeadam.onlinefoodapp.domain.Order;
 import com.bilgeadam.onlinefoodapp.repo.OrderRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,8 +29,12 @@ public class OrderService {
         return orderRepository.getLastOrderId();
     }
 
-    public void testOrderDetails(long orderId, String code, long price) {
-        orderRepository.testOrderDetails(orderId, code, price);
+    public void createOrderDetail(long orderId, String code, long price) {
+        orderRepository.createOrderDetail(orderId, code, price);
+    }
+
+    public List<Order> getAllByCustomerId(Long id){
+        return orderRepository.getAllByCustomer_CustomerIdOrderByOrderIdDesc(id);
     }
 
     public Optional<Order> getByOrderId(Long id) {

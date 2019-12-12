@@ -15,6 +15,7 @@ class HeaderComonent extends Component {
                     <ul className="navbar-nav">
                         <li><Link className="nav-link font-family-size" to="/meals">Yemekler</Link></li>
                         {isUserLoggedIn && <li><Link className="nav-link font-family-size" to="/shoppingcart">Sepetim</Link></li>}
+                        {isUserLoggedIn && <li><Link className="nav-link font-family-size" to="/orders">Siparişlerim</Link></li>}
                     </ul>
 
                     <ul className="navbar-nav navbar-collapse justify-content-end">

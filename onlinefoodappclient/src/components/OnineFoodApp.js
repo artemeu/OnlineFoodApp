@@ -8,6 +8,8 @@ import AuthenticatedRoute from '../Authentication/AuthenticatedRoute';
 import LoginRouter from './LoginRouter';
 import ErrorComponent from './ErrorComponent';
 import ShoppingCartComponent from './ShoppingCartComponent';
+import OrderComponent from './OrderComponent';
+import OrderDetailComponent from './OrderDetailComponent';
 
 class OnlineFoodApp extends Component {
     render() {
@@ -20,6 +22,8 @@ class OnlineFoodApp extends Component {
                             <Route path="/" exact component={MealListComponent} />
                             <Route path="/meals" component={MealListComponent} />
                             <AuthenticatedRoute path="/shoppingcart" component={ShoppingCartComponent} />
+                            <AuthenticatedRoute path="/orders" component={OrderComponent} />
+                            <AuthenticatedRoute path="/details/:orderId" component={OrderDetailComponent} />
                             <LoginRouter path="/login" component={LoginComponent} />
                             <Route component={ErrorComponent} />
                         </Switch>

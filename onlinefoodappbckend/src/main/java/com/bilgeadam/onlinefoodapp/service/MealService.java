@@ -47,4 +47,8 @@ public class MealService {
     public List<Meal> getAllCart(long id) {
         return mealRepository.getAllCart(id);
     }
+
+    public List<Meal> getOrderDetals(long orderId) {
+        return mealRepository.getOrderDetals(orderId);
+    }
 }

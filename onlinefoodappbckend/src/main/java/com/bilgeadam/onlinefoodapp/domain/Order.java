@@ -24,6 +24,7 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "CUSTOMER_ID")
+    @JsonBackReference("customer")
     private Customer customer;
 
     @ManyToMany(fetch = FetchType.EAGER)

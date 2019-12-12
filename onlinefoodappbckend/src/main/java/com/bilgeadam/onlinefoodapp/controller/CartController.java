@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
-import java.net.URI;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
@@ -71,7 +71,8 @@ public class CartController {
         long id = customerService.getId(req);
         long orderId = 1L;
         long price = 0L;
-        Date date = new Date(6);
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+        Date date = new Date();
 
         Optional<Order> lastOrder = orderService.getLastOrderId();
 
@@ -88,12 +89,12 @@ public class CartController {
         order.setOrderId(orderId);
         order.setPrice(price);
         order.setPlacementDate(date);
-        order.setStatus(true);
+        order.setStatus(null);
 
         try {
             orderService.save(order, id);
             for (Meal m : meals) {
-                orderService.testOrderDetails(orderId, m.getCode(), m.getPrice());
+                orderService.createOrderDetail(orderId, m.getCode(), m.getPrice());
             }
             customerService.emptyCart(id);
         } catch (Exception e) {
