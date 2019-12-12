@@ -24,18 +24,6 @@ class MealListComponent extends Component {
             })
     };
 
-    increment = (code) => {
-        let val = document.getElementById(code).value
-        if (val != 10)
-            document.getElementById(code).value++
-    }
-
-    decrement = (code) => {
-        let val = document.getElementById(code).value
-        if (val != 1)
-            document.getElementById(code).value--
-    }
-
     order = (code) => {
         if (AuthenticationService.isUserLoggedIn()) {
 
@@ -81,14 +69,7 @@ class MealListComponent extends Component {
                                             <td>{meal.price.toString()} TL</td>
                                             <td>
                                                 <div className="input-grp">
-                                                    {/* <span className="input-group-btn">
-                                                        <button type="button" className="btn btn-light btn-number" onClick={() => this.decrement(meal.code)}>-</button>
-                                                    </span>
-                                                    <input type="text" className="center mli3" id={meal.code} value="1" readOnly />
-                                                    <span className="input-group-btn">
-                                                        <button className="btn btn-light btn-number" onClick={() => this.increment(meal.code)}>+</button>
-                                                    </span> */}
-                                                    <button className="btn btn-success ml20" onClick={() => this.order(meal.code)}>Sipariş Ver</button>
+                                                    <button className="btn btn-success ml20" onClick={() => this.order(meal.code)}>Sepete Ekle</button>
                                                 </div>
                                             </td>
                                         </tr>

@@ -46,18 +46,6 @@ class ShoppingCartComponent extends Component {
             })
     }
 
-    increment = (code) => {
-        let val = document.getElementById(code).value
-        if (val != 10)
-            document.getElementById(code).value++
-    }
-
-    decrement = (code) => {
-        let val = document.getElementById(code).value
-        if (val != 1)
-            document.getElementById(code).value--
-    }
-
     submitCart = (meal) => {
         CartDataService.sumbitCart(meal)
             .then(response => {
@@ -101,16 +89,6 @@ class ShoppingCartComponent extends Component {
                                             <div className="col-3 col-sm-3 col-md-6 text-md-right" style={{ paddingTop: "10px" }}>
                                                 <h6><strong>{meal.price}.00 <span className="text-muted">TL</span></strong></h6>
                                             </div>
-
-                                            <div className="col-4 col-sm-4 col-md-4">
-                                                <div className="quantity">
-                                                    <input type="button" value="+" className="plus" onClick={() => this.increment(meal.code)} />
-                                                    <input type="text" max="99" min="1" value="1" id={meal.code} className="qty"
-                                                        size="4" readOnly />
-                                                    <input type="button" value="-" className="minus" onClick={() => this.decrement(meal.code)} />
-                                                </div>
-                                            </div>
-
                                             <div className="col-2 col-sm-2 col-md-2 text-right">
                                                 <button className="btn btn-danger" onClick={() => this.remove(meal.code)}>Sil</button>
                                             </div>
@@ -120,7 +98,6 @@ class ShoppingCartComponent extends Component {
                         )
                     }
 
-
                     {this.state.meals.length != 0 && <div className="card-footer">
                         <div className="pull-right" style={{ margin: "10px" }}>
                             <button className="btn btn-success pull-right" onClick={() => this.submitCart(this.state.meals)}>Onayla</button>
@@ -129,7 +106,6 @@ class ShoppingCartComponent extends Component {
                             </div>
                         </div>
                     </div>}
-
 
                 </div>
             </div>
