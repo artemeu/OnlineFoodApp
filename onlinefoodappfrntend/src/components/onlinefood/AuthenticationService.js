@@ -1,37 +1,47 @@
 import axios from 'axios';
 class AuthenticationService {
 
-    executeBasicAuthentication(username, password) {
-        return axios.get('http://localhost:8034/basicauthentication', { headers: { authorization: this.createBasicAuthentication(username, password) } });
-    };
-
     executeJwtAuthentication(username, password) {
         return axios.post('http://localhost:8034/admin/authenticate', { username, password });
     };
 
-    createBasicAuthentication(username, password) {
-        return 'Basic ' + window.btoa(username + ":" + password);
-    };
+    registerSuccessfullLoginJwt(username, token, remember) {
+        if (remember == true) {
+            localStorage.setItem('authenticatedUser', username);
+            localStorage.setItem('token', token);
+            this.setupAxiosInterceptorsJwt(token);
+        }
+        else {
+            sessionStorage.setItem('authenticatedUser', username);
+            localStorage.setItem('token', token);
+            this.setupAxiosInterceptorsJwt(token);
+        }
 
-    registerSuccessfullLogin(username, password) {
-        sessionStorage.setItem('authenticatedUser', username);
-        this.setupAxiosInterceptors(username, password);
-    }
-
-    registerSuccessfullLoginJwt(username, token) {
-        sessionStorage.setItem('authenticatedUser', username);
-        localStorage.setItem('token', token);
-        this.setupAxiosInterceptorsJwt(token);
     }
 
     logout() {
-        sessionStorage.removeItem('authenticatedUser');
+        let local = localStorage.getItem('authenticatedUser');
+        if (local != null) {
+            localStorage.removeItem('token');
+            localStorage.removeItem('authenticatedUser');
+        } else {
+            localStorage.removeItem('token');
+            sessionStorage.removeItem('authenticatedUser');
+        }
     }
 
     isUserLoggedIn() {
-        let user = sessionStorage.getItem('authenticatedUser');
-        if (user === null) return false;
-        return true;
+        let session = sessionStorage.getItem('authenticatedUser');
+        let local = localStorage.getItem('authenticatedUser');
+        if (session != null) {
+            return true
+        }
+        else if (local != null) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     setupAxiosInterceptors(username, password) {
