@@ -25,6 +25,11 @@ class OrderComponent extends Component {
 
     componentDidMount() {
         this.refreshOrders();
+        this.interval = setInterval(() => this.refreshOrders(), 5000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
     }
 
     render() {

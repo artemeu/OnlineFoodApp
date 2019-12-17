@@ -27,6 +27,11 @@ class CourierComponent extends Component {
 
     componentDidMount() {
         this.refreshCourier();
+        this.interval = setInterval(() => this.refreshCourier(), 5000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
     }
 
     render() {
