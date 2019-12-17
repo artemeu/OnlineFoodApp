@@ -37,7 +37,25 @@ public class OrderService {
         return orderRepository.getAllByCustomer_CustomerIdOrderByOrderIdDesc(id);
     }
 
-    public Optional<Order> getByOrderId(Long id) {
+    public List<Order> findAll(){
+        return orderRepository.findAll();
+    }
+
+    public String getByOrderId(Long id) {
         return orderRepository.getByOrderId(id);
     }
+
+    public void approveOrder(long orderId, long status){
+        orderRepository.approveOrder(orderId, status);
+    }
+
+    public List findOrdersByStatus(){
+        return orderRepository.findOrdersByStatus();
+    }
+
+    public void deliver(long orderId)
+    {
+        orderRepository.deliver(orderId);
+    }
+
 }

@@ -1,7 +1,6 @@
 package com.bilgeadam.onlinefoodapp.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -17,9 +16,14 @@ public class Customer {
     @Column(name = "SURNAME")
     private String surname;
     @Column(name = "USERNAME")
+    @JsonIgnore
     private String username;
     @Column(name = "PASSWORD")
+    @JsonIgnore
     private String password;
+
+    @Column(name = "ADDRESS")
+    private String address;
 
     @ManyToMany(mappedBy = "customers")
     private Set<Meal> meals;
@@ -30,12 +34,13 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(long customerId, String name, String surname, String username, String password, Set<Meal> meals, Set<Order> orders) {
+    public Customer(long customerId, String name, String surname, String username, String password, String address, Set<Meal> meals, Set<Order> orders) {
         this.customerId = customerId;
         this.name = name;
         this.surname = surname;
         this.username = username;
         this.password = password;
+        this.address = address;
         this.meals = meals;
         this.orders = orders;
     }
@@ -94,5 +99,13 @@ public class Customer {
 
     public void setOrders(Set<Order> orders) {
         this.orders = orders;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
