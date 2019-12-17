@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AuthenticationService from '../Authentication/services/AuthenticationService';
+import AuthenticationService from '../../components/onlinefood/AuthenticationService';
 import { Route, Redirect } from 'react-router-dom';
 
 class LoginRouter extends Component {
