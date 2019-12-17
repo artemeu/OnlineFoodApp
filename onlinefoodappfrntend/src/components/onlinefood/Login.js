@@ -7,7 +7,8 @@ class Login extends Component {
         this.state = {
             username: "mesutcan",
             password: "123",
-            isLoggedIn: null
+            isLoggedIn: null,
+            authority: []
         };
     }
 
@@ -42,8 +43,16 @@ class Login extends Component {
         var remember = document.getElementById("check").checked;
         AuthenticationService.executeJwtAuthentication(this.state.username, this.state.password)
             .then(response => {
-                AuthenticationService.registerSuccessfullLoginJwt(this.state.username, response.data.token, remember);
-                this.props.history.push(`/meallist`);
+                this.setState({ authority: response.data.roles })
+                AuthenticationService.registerSuccessfullLoginJwt(this.state.username, response.data.token, remember, this.state.authority);
+                console.log(this.state.authority)
+                if (AuthenticationService.isUserAdmin()) {
+                    this.props.history.push(`/meallist`);
+                } else if (AuthenticationService.isUserCook()) {
+                    this.props.history.push(`/orders`);
+                } else {
+                    this.props.history.push(`/courier`);
+                }
             })
             .catch(error => {
                 this.setState({ isLoggedIn: false });

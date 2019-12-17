@@ -5,13 +5,19 @@ class AuthenticationService {
         return axios.post('http://localhost:8034/admin/authenticate', { username, password });
     };
 
-    registerSuccessfullLoginJwt(username, token, remember) {
+    registerSuccessfullLoginJwt(username, token, remember, authority) {
         if (remember == true) {
+            authority.forEach(element => {
+                localStorage.setItem(element.authority, element.authority)
+            });
             localStorage.setItem('authenticatedUser', username);
             localStorage.setItem('token', token);
             this.setupAxiosInterceptorsJwt(token);
         }
         else {
+            authority.forEach(element => {
+                sessionStorage.setItem(element.authority, element.authority)
+            });
             sessionStorage.setItem('authenticatedUser', username);
             localStorage.setItem('token', token);
             this.setupAxiosInterceptorsJwt(token);
@@ -23,10 +29,16 @@ class AuthenticationService {
         let local = localStorage.getItem('authenticatedUser');
         if (local != null) {
             localStorage.removeItem('token');
+            localStorage.removeItem('Admin');
+            localStorage.removeItem('Cook');
+            localStorage.removeItem('Courier');
             localStorage.removeItem('authenticatedUser');
         } else {
             localStorage.removeItem('token');
             sessionStorage.removeItem('authenticatedUser');
+            sessionStorage.removeItem('Admin');
+            sessionStorage.removeItem('Cook');
+            sessionStorage.removeItem('Courier');
         }
     }
 
@@ -43,6 +55,49 @@ class AuthenticationService {
             return false;
         }
     }
+
+    isUserCook() {
+        let sessionCook = sessionStorage.getItem('Cook');
+        let localCook = localStorage.getItem('Cook');
+        if (sessionCook != null) {
+            return true
+        }
+        else if (localCook != null) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    isUserCourier() {
+        let sessionCook = sessionStorage.getItem('Courier');
+        let localCook = localStorage.getItem('Courier');
+        if (sessionCook != null) {
+            return true
+        }
+        else if (localCook != null) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    isUserAdmin() {
+        let sessionAdmin = sessionStorage.getItem('Admin');
+        let localAdmin = localStorage.getItem('Admin');
+        if (sessionAdmin != null) {
+            return true
+        }
+        else if (localAdmin != null) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
 
     setupAxiosInterceptors(username, password) {
         axios.interceptors.request.use((config) => {

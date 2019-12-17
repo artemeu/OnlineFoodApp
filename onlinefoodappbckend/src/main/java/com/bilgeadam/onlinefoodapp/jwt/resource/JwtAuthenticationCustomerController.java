@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Objects;
 
 @RestController
@@ -39,10 +40,10 @@ public class JwtAuthenticationCustomerController {
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
         final UserDetails userDetails = jwtUserDetailsCustomerService.loadUserByUsername(authenticationRequest.getUsername());
-
+        List roles = (List) userDetails.getAuthorities();
         final String token = jwtTokenUtil.generateToken(userDetails,"customer");
 
-        return ResponseEntity.ok(new JwtTokenResponse(token));
+        return ResponseEntity.ok(new JwtTokenResponse(token, roles));
     }
 
     @RequestMapping(value = "/refresh", method = RequestMethod.GET)
@@ -51,10 +52,10 @@ public class JwtAuthenticationCustomerController {
         final String token = authToken.substring(7);
         String username = jwtTokenUtil.getUsernameFromToken(token);
         JwtCustomerDetails user = (JwtCustomerDetails) jwtUserDetailsCustomerService.loadUserByUsername(username);
-
+        List roles = (List) user.getAuthorities();
         if (jwtTokenUtil.canTokenBeRefreshed(token)) {
         String refreshedToken = jwtTokenUtil.refreshToken(token);
-        return ResponseEntity.ok(new JwtTokenResponse(refreshedToken));
+        return ResponseEntity.ok(new JwtTokenResponse(refreshedToken, roles));
     } else {
         return ResponseEntity.badRequest().body(null);
     }

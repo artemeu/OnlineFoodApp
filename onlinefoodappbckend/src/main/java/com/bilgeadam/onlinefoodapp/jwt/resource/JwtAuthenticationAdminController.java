@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Objects;
 
 @RestController
@@ -42,10 +43,10 @@ public class JwtAuthenticationAdminController {
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
         final UserDetails userDetails = jwtUserDetailsAdminService.loadUserByUsername(authenticationRequest.getUsername());
-
+        List roles = (List) userDetails.getAuthorities();
         final String token = jwtTokenUtil.generateToken(userDetails, "admin");
 
-        return ResponseEntity.ok(new JwtTokenResponse(token));
+        return ResponseEntity.ok(new JwtTokenResponse(token, roles));
     }
 
     @RequestMapping(value = "/refresh", method = RequestMethod.GET)
@@ -54,10 +55,10 @@ public class JwtAuthenticationAdminController {
         final String token = authToken.substring(7);
         String username = jwtTokenUtil.getUsernameFromToken(token);
         JwtUserDetails user = (JwtUserDetails) jwtUserDetailsAdminService.loadUserByUsername(username);
-
+        List roles = (List) user.getAuthorities();
         if (jwtTokenUtil.canTokenBeRefreshed(token)) {
             String refreshedToken = jwtTokenUtil.refreshToken(token);
-            return ResponseEntity.ok(new JwtTokenResponse(refreshedToken));
+            return ResponseEntity.ok(new JwtTokenResponse(refreshedToken, roles));
         } else {
             return ResponseEntity.badRequest().body(null);
         }
