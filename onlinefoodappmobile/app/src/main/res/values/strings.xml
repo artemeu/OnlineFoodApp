@@ -15,8 +15,13 @@
     <string name="campaign">Campaign</string>
 
     <string name="btn_foods">Yemekler</string>
-    <string name="btn_previousorders">Önceki \n Siparişler</string>
-    <string name="btn_orders">Sipariş Durumu</string>
+    <string name="btn_previousorders">Siparişlerim</string>
+    <string name="btn_orders">Sepetim</string>
     <string name="btn_login">Giriş/Çıkış</string>
     <string name="campaign_meal">Campaign Meal</string>
+
+    <string name="btn_add">Sepete Ekle</string>
+    <string name="btn_create_order">Sipariş Ver</string>
+    <string name="btn_order_detail">Detay</string>
+
 </resources>

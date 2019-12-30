@@ -17,9 +17,9 @@ class CartDataService {
         return axios.delete(`http://localhost:8034/cart/${code}`);
     };
 
-    sumbitCart(meal) {
+    sumbitCart() {
         console.log('execute started');
-        return axios.post(`http://localhost:8034/cart/submit`, meal);
+        return axios.post(`http://localhost:8034/cart/submit`);
     }
 
 }

@@ -1,0 +1,97 @@
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/CardView.Light"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="12dp"
+            android:padding="4dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            android:contentDescription="TODO" />
+
+        <TextView
+            android:id="@+id/order_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="16dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/meal_name_color"
+            app:layout_constraintTop_toTopOf="@+id/img"
+            app:layout_constraintStart_toEndOf="@+id/img"
+            app:layout_constraintEnd_toStartOf="@+id/btn_order_details" />
+
+        <TextView
+            android:id="@+id/order_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="16dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/meal_description_color"
+            app:layout_constraintStart_toEndOf="@+id/img"
+            app:layout_constraintEnd_toStartOf="@+id/btn_order_details"
+            app:layout_constraintTop_toBottomOf="@+id/order_id"/>
+
+        <TextView
+            android:id="@+id/order_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="16dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/meal_description_color"
+            app:layout_constraintStart_toEndOf="@+id/img"
+            app:layout_constraintEnd_toStartOf="@+id/btn_order_details"
+            app:layout_constraintTop_toBottomOf="@+id/order_price"/>
+
+        <TextView
+            android:id="@+id/order_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="16dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/meal_description_color"
+            app:layout_constraintStart_toEndOf="@+id/img"
+            app:layout_constraintEnd_toStartOf="@+id/btn_order_details"
+            app:layout_constraintTop_toBottomOf="@id/order_date"
+            app:layout_constraintBottom_toBottomOf="@id/img"/>
+
+        <Button
+            android:id="@+id/btn_order_details"
+            android:layout_width="80dp"
+            android:layout_height="0dp"
+            android:text="@string/btn_order_detail"
+            android:textSize="13sp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintTop_toTopOf="@+id/order_id"
+            app:layout_constraintBottom_toTopOf="@id/order_status"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/order_id"
+/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

@@ -46,21 +46,20 @@ public class OrderController {
     public boolean orderStatus(@PathVariable long orderId) {
         String resullt = orderService.getByOrderId(orderId);
 
-        if(resullt == null){
+        if (resullt == null) {
             return false;
-        }
-        else{
+        } else {
             return true;
         }
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/approve/{orderId}")
-    public void approveOrder(@PathVariable long orderId){
+    public void approveOrder(@PathVariable long orderId) {
         String resullt = orderService.getByOrderId(orderId);
-            if(resullt != "true" || resullt != "false"){
-            try{
+        if (resullt != "true" || resullt != "false") {
+            try {
                 orderService.approveOrder(orderId, 1);
-            }catch (Exception e){
+            } catch (Exception e) {
                 System.out.println(e.toString());
             }
         }

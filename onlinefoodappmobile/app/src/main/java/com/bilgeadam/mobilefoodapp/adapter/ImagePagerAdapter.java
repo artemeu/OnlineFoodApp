@@ -56,7 +56,7 @@ public class ImagePagerAdapter extends PagerAdapter {
                 .into(imageView);
 
         //View cardView = LayoutInflater.from(context).inflate(R.layout.layout_image_slider, null);
-        String waterMarkStr = !campaignMealList.isEmpty() ? campaignMealList.get(position).getPrice().toString() : null;
+        String waterMarkStr = !campaignMealList.isEmpty() ? campaignMealList.get(position).getPrice() +".00 TL".toString() : null;
         TextView waterMarkText = view.findViewById(R.id.water_mark);
         waterMarkText.setText(waterMarkStr);
         container.addView(view);

@@ -46,8 +46,8 @@ class ShoppingCartComponent extends Component {
             })
     }
 
-    submitCart = (meal) => {
-        CartDataService.sumbitCart(meal)
+    submitCart = () => {
+        CartDataService.sumbitCart()
             .then(response => {
                 this.refreshMeals();
             });
@@ -100,7 +100,7 @@ class ShoppingCartComponent extends Component {
 
                     {this.state.meals.length != 0 && <div className="card-footer">
                         <div className="pull-right" style={{ margin: "10px" }}>
-                            <button className="btn btn-success pull-right" onClick={() => this.submitCart(this.state.meals)}>Onayla</button>
+                            <button className="btn btn-success pull-right" onClick={this.submitCart}>Onayla</button>
                             <div className="pull-right" style={{ margin: "5px" }}>
                                 Toplam: <b>{this.state.totalPrice}.00 TL</b>
                             </div>

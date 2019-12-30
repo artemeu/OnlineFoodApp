@@ -16,7 +16,7 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
     @Query(value = "SELECT O.STATUS FROM ORDERS O WHERE O.ORDER_ID =:id", nativeQuery = true)
     String getByOrderId(Long id);
 
-    @Query(value = "SELECT * FROM ORDERS ORDER BY PLACEMENT_DATE DESC", nativeQuery = true)
+    @Query(value = "SELECT * FROM ORDERS ORDER BY ORDER_ID DESC", nativeQuery = true)
     List<Order> findAll();
 
     @Query(value = "SELECT O.ORDER_ID, C.NAME, C.SURNAME, O.PRICE, C.ADDRESS " +

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
@@ -66,12 +65,11 @@ public class CartController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "/submit")
-    public void submitOrder(HttpServletRequest req, @RequestBody Set<Meal> meals) {
+    @RequestMapping(path = "/submit", method = RequestMethod.POST)
+    public void submitOrderAndroid(HttpServletRequest req) {
         long id = customerService.getId(req);
         long orderId = 1L;
         long price = 0L;
-        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
         Date date = new Date();
 
         Optional<Order> lastOrder = orderService.getLastOrderId();
@@ -81,24 +79,28 @@ public class CartController {
             orderId += 1L;
         }
 
-        for (Meal m : meals) {
-            price += m.getPrice();
-        }
-
-        Order order = new Order();
-        order.setOrderId(orderId);
-        order.setPrice(price);
-        order.setPlacementDate(date);
-        order.setStatus(null);
-
-        try {
-            orderService.save(order, id);
+        List<Meal> meals = mealService.getAllCart(id);
+        if (meals.size() != 0) {
             for (Meal m : meals) {
-                orderService.createOrderDetail(orderId, m.getCode(), m.getPrice());
+                price += m.getPrice();
             }
-            customerService.emptyCart(id);
-        } catch (Exception e) {
-            System.out.println(e);
+
+            Order order = new Order();
+            order.setOrderId(orderId);
+            order.setPrice(price);
+            order.setPlacementDate(date);
+            order.setStatus(null);
+
+            try {
+                orderService.save(order, id);
+                for (Meal m : meals) {
+                    orderService.createOrderDetail(orderId, m.getCode(), m.getPrice());
+                }
+                customerService.emptyCart(id);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
         }
+
     }
 }

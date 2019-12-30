@@ -21,11 +21,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.MealMenuActivity"
-            android:label="Meal Menu" />
+            android:name=".activity.MealMenuActivity" />
+<!--            android:label="Meal Menu"-->
         <activity
             android:name=".activity.MealDetailActivity"
             android:label="Meal Detail" />
+
+        <activity
+            android:name=".activity.OrderActivity"
+            android:label="Siparişlerim" />
+
+        <activity
+            android:name=".activity.LoginActivity"
+            android:label="Giriş Yap" />
     </application>
 
 </manifest>

@@ -76,6 +76,7 @@ public class JWTWebSecurityConfigCustomer extends WebSecurityConfigurerAdapter {
                 .and()
                 .ignoring()
                 .antMatchers(HttpMethod.GET,"/")
-                .antMatchers(HttpMethod.GET,"/meals/all");
+                .antMatchers(HttpMethod.GET,"/meals/all")
+                .antMatchers(HttpMethod.GET,"/meals/campaigns");
         }
 }

@@ -7,10 +7,6 @@ import android.view.MotionEvent;
 
 import androidx.viewpager.widget.ViewPager;
 
-/**
- * Created by mcan
- */
-
 public class ClickableViewPager extends ViewPager {
 
     private OnItemClickListener mOnItemClickListener;

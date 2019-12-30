@@ -9,6 +9,6 @@ import retrofit2.http.POST;
 
 public interface AuthenticateService {
 
-    @POST("/admin/authenticate")
+    @POST("/customer/authenticate")
     Call<ResponseBody> authenticate(@Body JwtTokenRequest jwtTokenRequest);
 }
